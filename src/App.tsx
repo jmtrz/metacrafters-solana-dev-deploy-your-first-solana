@@ -82,7 +82,7 @@ export default function App() {
     if (solana) {
       try {
 				// connects wallet and returns response which includes the wallet public key
-        const response = await solana.connect();
+        const response = await solana.connect();        
         console.log('wallet account ', response.publicKey.toString());
 				// update walletKey to be the public key
         setWalletKey(response.publicKey.toString());
@@ -104,6 +104,12 @@ export default function App() {
     if (solana) {
       try {
 				// ADD DISCONNECT LOGIC HERE
+        if(provider?.isConnected) {
+          await provider?.disconnect();
+          console.log(provider.publicKey);
+          alert("disconnected");
+          setWalletKey(undefined); 
+        }         
       } catch (err) {
           console.log(err);
       }
